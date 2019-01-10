@@ -26,14 +26,36 @@ There are 4 example API calls made to either `http://services.impargo.de:5000` (
 
 ### POST /api/routes
 The body should contain a json object with attributes
-- `queries`:  An array of queries specifying legs of a route.
+- `queries`:  Array of queries specifying legs of a route. Each with at least a start and a destination.
 - `profile`:  car` or `truck` specifying speed profiles and enabling/disabling truck restrictions.
 
+#### queries
+An array of queries containing the following attributes.
+- `start`: coordinates of the start of the route.
+- `destination`: coordinates of the end of the route.
+- `viaPoints` (optional): Array of coordinates through which the route should pass.
+
+Each coordinates must have is a json object with two attirbutes:
+- `lat`: Latitude of the coordinate.
+- `lon`: Longitude of the coordinate.
+
+#### Example body
+```
+{
+  "queries":
+     [
+        {"start":{"lon":9.07,"lat":49.79},
+        "destination":{"lon":9.25,"lat":49.7},
+        "viaPoints":[ {"lat":49.78500915875961,"lon":9.218196203136415}]}
+       ],
+    "profile":"truck"
+ }
+```
 
 ### POST /api/toll
 The body should contain a json object with the attributes
-- `routes`
-- `settings`
+- `routes`: Array of tolls details from the response of `/api/routes` request. 
+- `settings`: Settings specifying how to compute the toll for the given routes.
 
 #### routes
 The `routes` parameter specifies the routes the toll is calculated for. `routes` should be obtain by calling the api endpont `/api/routes` and obtain the response data `tolls`.
@@ -47,3 +69,11 @@ The `settings` parameter specifies the vehicle and time of day the toll is calcu
 | weight        | `3.5 - 40.0` |  Floating point number specifying the maximm vehicle weight (zulässiges Gesamtgewicht) in tonnes.  |
 | euronorm      |`0` `1` `2` `3` `4` `5` `6` `EEV`  |   Eurocode of the vehicle exhaust emissions class. |
 | time          | `day` `night` `rushhour`      |   Time of day the route is driven. `day` corresponds to `5:00 - 22:00`, night corresponds to `22:00 - 05:00` and `rushhour` to friday afternoon. |
+
+#### Example body
+```
+{
+    "routes":[[{"country":"DE","distances":[30679,4147,714],"toll_booths":[]}]],
+    "settings":{"axis":"5","weight":40,"euronorm":"5","time":"day"}
+}
+```
