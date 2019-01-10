@@ -1,28 +1,25 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from 'react'
+import Login from './Login'
 
+const ExampleApi = () => <div/>
 class App extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {}
+  }
   render() {
+    if (!this.state.token) {
+      return <Login onSuccess={token => this.setState({ token })} />
+    }
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
+      <div>
+        <button onClick={() => this.setState({ token: undefined })}>
+          logout
+        </button>
+        <ExampleApi token={this.state.token} />
       </div>
-    );
+    )
   }
 }
 
-export default App;
+export default App
