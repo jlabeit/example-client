@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import Login from './Login'
+import Routing from './Routing'
+import Vehicles from './Vehicles'
 
-const ExampleApi = () => <div/>
 class App extends Component {
   constructor(props) {
     super(props)
@@ -16,7 +17,8 @@ class App extends Component {
         <button onClick={() => this.setState({ token: undefined })}>
           logout
         </button>
-        <ExampleApi token={this.state.token} />
+        <Routing token={this.state.token} />
+        <Vehicles token={this.state.token} />
       </div>
     )
   }

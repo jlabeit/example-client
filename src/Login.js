@@ -5,7 +5,7 @@ const client = GraphqlClient({
   url: 'http://services.impargo.de:5000',
   // Add authorization header if already logged in:
   // headers: {
-  //   Authorization: 'Bearer ' + token
+  //   Authorization: token
   // }
 })
 
