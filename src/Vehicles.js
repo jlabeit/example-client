@@ -39,8 +39,6 @@ class Vehicles extends Component {
         console.log('got vehicles successfull', vehicles)
         this.setState({ vehicles })
       }
-
-      console.log(body)
     }).catch((err) => {
       console.error('login mutation request failed', err.message)
     })
@@ -51,18 +49,20 @@ class Vehicles extends Component {
     }
     return (
       <table>
-        <tr>
-          <th>id</th>
-          <th>name</th>
-          <th>finance type</th>
-        </tr>
-        {this.state.vehicles.map(({ id, name, finance }) => (
-          <tr key={id}>
-            <td>{id}</td>
-            <td>{name}</td>
-            <td>{finance}</td>
+        <tbody>
+          <tr>
+            <th>id</th>
+            <th>name</th>
+            <th>finance type</th>
           </tr>
-        ))}
+          {this.state.vehicles.map(({ id, name, finance }) => (
+            <tr key={id}>
+              <td>{id}</td>
+              <td>{name}</td>
+              <td>{finance}</td>
+            </tr>
+          ))}
+        </tbody>
       </table>
     )
   }
